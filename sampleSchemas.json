@@ -1,0 +1,46 @@
+{
+  "meta":{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "id": "meta",
+    "title": "metadata",
+    "description": "A schema of the metadata that all data to chitragupta must possess",
+    "type": "object",
+    "properties": {
+      "id": {
+        "description": "an id that identifies an individual piece of data",
+        "type": "string"
+      },
+      "schema":{
+        "type":"string"
+      },
+      "type": {
+        "type": "string"
+      },
+      "recorded_at": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "origin": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "location": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name"
+        ]
+      }
+    },
+    "required": [
+      "id",
+      "type",
+      "schema",
+      "recorded_at",
+      "origin"
+    ]
+  }
+}
