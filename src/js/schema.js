@@ -1,14 +1,16 @@
 const fs = require('fs');
 const path = require('path');
 
-const writeToDB = function(schemas,schemaName,schema){
-  schemas.insert({name:schemaName,value:schema},function (err,success) {
+const writeToDB = function(schemas,schemaName,schema,client){
+  schemas.insertOne({name:schemaName,value:schema},function (err,success) {
     if(err){
-      console.log("updating failed");
+      console.log(err);
+      console.log("Updating failed");
     }
     if(success) {
-      console.log("success to add schema");
+      console.log("Success to add schema");
     }
+    client.close();
     return;
   })
 }
@@ -20,34 +22,33 @@ const validate = function(schemaName,schema){
       return;
     }
     let schemas = client.db(dbName).collection('schemas');
-    schemas.find({name:schemaName},function(err,result){
-      if(err || result.length>0){
+    schemas.findOne({name:schemaName},function(err,result){
+      if(err || result){
         return;
       }
-      writeToDB(schemas,schemaName,schema);
+      writeToDB(schemas,schemaName,schema,client);
     })
-    client.close();
   })
 }
 
 const getSchema = function(schemaName) {
-  let schema;
-  MongoClient.connect(url,function(err,client){
-    if(err){
-      console.log(err);
-      return;
-    }
-    let schemas = client.db(dbName).collection('schemas');
-    schema = schemas.find({name:schemaName},function(err,result){
+ return function(req,res){
+    MongoClient.connect(url,function(err,client){
       if(err){
+        console.log(err);
         return;
       }
-      console.log(result);
-      return result[0];
+      let schemas = client.db(dbName).collection('schemas');
+      schemas.findOne({name:schemaName},function(err,result){
+        if(err){
+          return;
+        }
+        res.json(result);
+      })
+      client.close();
     })
-    client.close();
-  })
-  return schema;
+    return;
+  };
 }
 
 module.exports = {

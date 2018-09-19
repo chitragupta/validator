@@ -1,7 +1,7 @@
 const schemaController = require('../js/schema.js');
 
 const getSchema = function(req,res) {
-  res.json(schemaController.getSchema(req.params.name));
+  schemaController.getSchema(req.params.name)(req,res);
 }
 
 const addSchema = function(req,res) {
@@ -10,6 +10,7 @@ const addSchema = function(req,res) {
   try {
     schemaController.addSchema(name,schema);
   } catch (e) {
+    console.log(e);
     res.status(409).send(e);
   }
   res.send();
