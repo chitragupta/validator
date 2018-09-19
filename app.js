@@ -7,9 +7,9 @@ const config = require('./config.js');
 const schemaHandler = require('./src/routes/schemaHandler.js');
 const dataHandler = require('./src/routes/dataHandler.js');
 
-url = 'mongodb://localhost:27017';
-dbName = 'chitragupt';
-dbRetries = config.db.retries || 3;
+url = config.db.url;
+dbName = config.db.name;
+dbRetries = config.db.retries;
 
 function connectDb() {
   MongoClient.connect(url, function(err, client) {
