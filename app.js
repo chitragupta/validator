@@ -27,6 +27,7 @@ function connectDb() {
     console.log("Successfully connected to DB"); client.close();
   });
 };
+
 connectDb();
 
 const app = express();
@@ -44,3 +45,4 @@ app.get('/', (req, res) => res.send("Hello don't worry I am up "));
 app.get('/schemas/:name', schemaHandler.getSchema);
 
 app.put('/schemas/:name', schemaHandler.addSchema);
+app.put('/data/:name',dataHandler.handle);

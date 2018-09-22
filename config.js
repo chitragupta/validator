@@ -7,7 +7,7 @@ module.exports = {
         retries:getEnv("DB_ATTEMPTS","3"),
     },
     schema:{
-        server:getEnv("SCHEMA_SERVER","/schemas")
+        server:getEnv("SCHEMA_SERVER",`http://localhost:${getEnv('PORT',12345)}`)
     },
     port:getEnv('PORT',12345)
 }

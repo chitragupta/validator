@@ -1,12 +1,9 @@
 {
-    "data":{
-          "id": "some id",
-          "schema": "event_occured_at",  
-          "type": "event",
-          "recorded_at": "2018-08-18T08:49:06.517Z",
-          "origin": {
-              "name": "mobile"
-            }
-        }
-
+  "id": "some id",
+  "schema": "event_occured_at",
+  "type": "event",
+  "recorded_at": "2018-08-18T08:49:06.517Z",
+  "origin": {
+    "name": "mobile"
+  }
 }

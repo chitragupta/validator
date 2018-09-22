@@ -6,7 +6,7 @@ const getSchema = function(req,res) {
 
 const addSchema = function(req,res) {
   let {name} = req.params;
-  let {schema} = req.body;
+  let schema = req.body;
   try {
     schemaController.addSchema(name,schema);
   } catch (e) {
