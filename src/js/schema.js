@@ -15,6 +15,14 @@ const writeToDB = function(schemas,schemaName,schema,client){
   })
 }
 
+const replace$ = function(schema) {
+  return JSON.parse(JSON.stringify(schema).replace("$schema","GivENschema"));
+}
+
+const replaceTo$ = function(schema) {
+  return JSON.parse(JSON.stringify(schema).replace("GivENschema","$schema"));
+}
+
 const validate = function(schemaName,schema){
   MongoClient.connect(url,function(err,client){
     if(err){
@@ -26,7 +34,7 @@ const validate = function(schemaName,schema){
       if(err || result){
         return;
       }
-      writeToDB(schemas,schemaName,schema,client);
+      writeToDB(schemas,schemaName,replace$(schema),client);
     })
   })
 }
@@ -43,7 +51,7 @@ const getSchema = function(schemaName) {
         if(err){
           return;
         }
-        res.json(result);
+        res.json(replaceTo$(result));
       })
       client.close();
     })
